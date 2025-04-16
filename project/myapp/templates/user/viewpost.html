@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Posts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        a {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #444;
+        }
+
+        img {
+            display: block;
+            margin-top: 10px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        small {
+            display: block;
+            margin-top: 10px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Posts</h1>
+    
+
+    <a href="{% url 'createpost' %}">Create New Post</a>
+
+
+    <ul>
+        {% for profile in profiles %}
+            <li>
+                <h2>{{ profile.title }}</h2>
+                {% if profile.animalphoto %}
+                    <img src="{{ profile.animalphoto.url }}" alt="Image" width="200">
+                {% endif %}
+                <p>{{ profile.content }}</p>
+                <small>Author: {{ profile.author }} | Published: {{ profile.published_date }}</small>
+                <a  href="{% url 'deleteProfile' profile.id %}">Delete</a>
+                <a  href="{% url 'updateUserProfile' profile.id %}">Edit</a>
+            </li>
+        {% empty %}
+            <li>No posts yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
